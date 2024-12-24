@@ -1,5 +1,5 @@
 ## Dize Programlama Dili ve Derleyicisi
-Dize Programming Language & Compiler
+// Dize Programming Language & Compiler
 
 Türkçe Tokenizer ve Kod Yorumlayıcı
 
