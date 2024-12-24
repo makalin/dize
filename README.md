@@ -1,13 +1,13 @@
-### Dize Programlama Dili ve Derleyicisi │ Dize Programming Language & Compiler
+## Dize Programlama Dili ve Derleyicisi │ Dize Programming Language & Compiler
 
 Türkçe Tokenizer ve Kod Yorumlayıcı
 
-
+```txt
   __ \  _) __  /  ____| 
   |   |  |    /   __|   
   |   |  |   /    |     
  ____/  _| ____| _____| 
-                        
+```                    
                         
 ### Giriş
 
