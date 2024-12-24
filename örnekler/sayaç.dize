@@ -1,0 +1,14 @@
+# Basit sayaç programı
+sayı = 1
+hedef = 10
+
+döngü sayı < hedef
+    eğer sayı == 5
+        yazdır "Yarıya geldik!"
+    değilse
+        yazdır sayı
+    bitir
+    sayı = sayı + 1
+bitir
+
+yazdır "Program bitti!"

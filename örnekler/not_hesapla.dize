@@ -1,0 +1,80 @@
+# Öğrenci Not Hesaplama Programı
+
+# Öğrenci bilgileri
+öğrenci_adı = "Ahmet"
+vize_notu = 75
+final_notu = 85
+devamsızlık = 3
+
+# Başarı notu hesaplama (Vize %40, Final %60)
+vize_etki = 40
+final_etki = 60
+başarı_notu = ((vize_notu * vize_etki) + (final_notu * final_etki)) / 100
+
+yazdır "Öğrenci Değerlendirme Raporu"
+yazdır "----------------------"
+yazdır "Öğrenci Adı:"
+yazdır öğrenci_adı
+yazdır "Vize Notu:"
+yazdır vize_notu
+yazdır "Final Notu:"
+yazdır final_notu
+yazdır "Başarı Notu:"
+yazdır başarı_notu
+
+# Devamsızlık kontrolü
+eğer devamsızlık > 10
+    yazdır "Devamsızlıktan kaldı!"
+değilse
+    # Not değerlendirmesi
+    eğer başarı_notu >= 90
+        yazdır "Harf Notu: AA"
+        yazdır "Mükemmel başarı!"
+    değilse
+        eğer başarı_notu >= 85
+            yazdır "Harf Notu: BA"
+            yazdır "Çok iyi başarı!"
+        değilse
+            eğer başarı_notu >= 80
+                yazdır "Harf Notu: BB"
+                yazdır "İyi başarı!"
+            değilse
+                eğer başarı_notu >= 75
+                    yazdır "Harf Notu: CB"
+                    yazdır "Orta üstü başarı!"
+                değilse
+                    eğer başarı_notu >= 70
+                        yazdır "Harf Notu: CC"
+                        yazdır "Orta başarı!"
+                    değilse
+                        eğer başarı_notu >= 65
+                            yazdır "Harf Notu: DC"
+                            yazdır "Geçer not!"
+                        değilse
+                            eğer başarı_notu >= 60
+                                yazdır "Harf Notu: DD"
+                                yazdır "Koşullu geçer!"
+                            değilse
+                                yazdır "Harf Notu: FF"
+                                yazdır "Başarısız - Dersi tekrar almalı!"
+                            bitir
+                        bitir
+                    bitir
+                bitir
+            bitir
+        bitir
+    bitir
+
+    # Başarı durumu analizi
+    yazdır "Performans Analizi:"
+    döngü başarı_notu > 60
+        eğer başarı_notu >= 80
+            yazdır "Üstün başarı gösterdiniz!"
+        değilse
+            yazdır "Geliştirilebilir alanlar var."
+        bitir
+        başarı_notu = 0
+    bitir
+bitir
+
+yazdır "Değerlendirme tamamlandı."
