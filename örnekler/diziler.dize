@@ -1,0 +1,14 @@
+// Dizi İşlemleri
+dizi sayılar[5];
+değişken toplam = 0;
+değişken i = 0;
+
+döngü (i < 5) {
+    yazdır (i + 1) + ". sayıyı giriniz: ";
+    oku sayılar[i];
+    toplam = toplam + sayılar[i];
+    i = i + 1;
+}
+
+değişken ortalama = toplam / 5;
+yazdır "Dizinin ortalaması: " + ortalama;

@@ -1,0 +1,7 @@
+// Sıcaklık Dönüştürme Programı
+değişken celsius;
+yazdır "Celsius sıcaklığını giriniz: ";
+oku celsius;
+
+değişken fahrenheit = (celsius * 9/5) + 32;
+yazdır celsius + " derece Celsius = " + fahrenheit + " derece Fahrenheit";

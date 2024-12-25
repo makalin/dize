@@ -1,0 +1,15 @@
+// Faktöriyel Hesaplama
+değişken sayı;
+değişken faktöriyel = 1;
+yazdır "Faktöriyel hesaplanacak sayıyı giriniz: ";
+oku sayı;
+
+eğer (sayı < 0) ise {
+    yazdır "Negatif sayıların faktöriyeli hesaplanamaz!";
+} değilse {
+    döngü (sayı > 1) {
+        faktöriyel = faktöriyel * sayı;
+        sayı = sayı - 1;
+    }
+    yazdır "Sonuç: " + faktöriyel;
+}
