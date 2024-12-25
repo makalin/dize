@@ -1,0 +1,25 @@
+//  Asal Sayı Kontrolü
+değişken kontrol_sayısı;
+değişken asal = doğru;
+değişken bölen = 2;
+
+yazdır "Kontrol edilecek sayıyı giriniz: ";
+oku kontrol_sayısı;
+
+eğer (kontrol_sayısı <= 1) ise {
+    asal = yanlış;
+} değilse {
+    döngü (bölün < kontrol_sayısı) {
+        eğer (kontrol_sayısı % bölün == 0) ise {
+            asal = yanlış;
+            dur;
+        }
+        bölün = bölün + 1;
+    }
+}
+
+eğer (asal) ise {
+    yazdır kontrol_sayısı + " bir asal sayıdır.";
+} değilse {
+    yazdır kontrol_sayısı + " bir asal sayı değildir.";
+}

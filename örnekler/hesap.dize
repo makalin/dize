@@ -1,0 +1,24 @@
+// Basit Hesap Makinesi
+değişken sayı1, sayı2, işlem;
+yazdır "İlk sayıyı giriniz: ";
+oku sayı1;
+yazdır "İkinci sayıyı giriniz: ";
+oku sayı2;
+yazdır "İşlem seçiniz (1:Topla, 2:Çıkar, 3:Çarp, 4:Böl): ";
+oku işlem;
+
+eğer (işlem == 1) ise {
+    yazdır "Sonuç: " + (sayı1 + sayı2);
+} değilse eğer (işlem == 2) ise {
+    yazdır "Sonuç: " + (sayı1 - sayı2);
+} değilse eğer (işlem == 3) ise {
+    yazdır "Sonuç: " + (sayı1 * sayı2);
+} değilse eğer (işlem == 4) ise {
+    eğer (sayı2 == 0) ise {
+        yazdır "Sıfıra bölme hatası!";
+    } değilse {
+        yazdır "Sonuç: " + (sayı1 / sayı2);
+    }
+} değilse {
+    yazdır "Geçersiz işlem!";
+}
