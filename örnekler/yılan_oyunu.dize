@@ -1,0 +1,187 @@
+// Yılan Oyunu (Snake Game)
+değişken EKRAN_GENİŞLİK = 40
+değişken EKRAN_YÜKSEKLİK = 20
+değişken KARE_BOYUT = 20
+değişken OYUN_HIZ = 100  // milisaniye
+
+// Yön sabitleri
+değişken YÖN_SAĞ = 0
+değişken YÖN_SOL = 1
+değişken YÖN_YUKARI = 2
+değişken YÖN_AŞAĞI = 3
+
+// Yılan sınıfı
+sınıf Yılan {
+    değişken x = []
+    değişken y = []
+    değişken uzunluk = 1
+    değişken yön = YÖN_SAĞ
+    değişken puan = 0
+    
+    fonksiyon başlat() {
+        x[0] = EKRAN_GENİŞLİK / 2
+        y[0] = EKRAN_YÜKSEKLİK / 2
+    }
+    
+    fonksiyon hareket_et() {
+        // Yılanın gövdesini hareket ettir
+        döngü i = uzunluk - 1, i > 0, i-- {
+            x[i] = x[i-1]
+            y[i] = y[i-1]
+        }
+        
+        // Yılanın başını hareket ettir
+        eğer yön == YÖN_SAĞ {
+            x[0] = x[0] + 1
+        } değilse eğer yön == YÖN_SOL {
+            x[0] = x[0] - 1
+        } değilse eğer yön == YÖN_YUKARI {
+            y[0] = y[0] - 1
+        } değilse eğer yön == YÖN_AŞAĞI {
+            y[0] = y[0] + 1
+        }
+        
+        // Duvar çarpışma kontrolü
+        eğer x[0] < 0 veya x[0] >= EKRAN_GENİŞLİK veya 
+           y[0] < 0 veya y[0] >= EKRAN_YÜKSEKLİK {
+            dönüş yanlış
+        }
+        
+        // Kendine çarpma kontrolü
+        döngü i = 1, i < uzunluk, i++ {
+            eğer x[0] == x[i] ve y[0] == y[i] {
+                dönüş yanlış
+            }
+        }
+        
+        dönüş doğru
+    }
+    
+    fonksiyon büyü() {
+        uzunluk = uzunluk + 1
+        x[uzunluk-1] = x[uzunluk-2]
+        y[uzunluk-1] = y[uzunluk-2]
+        puan = puan + 10
+    }
+}
+
+// Yem sınıfı
+sınıf Yem {
+    değişken x
+    değişken y
+    
+    fonksiyon yeni_konum() {
+        x = rastgele(0, EKRAN_GENİŞLİK - 1)
+        y = rastgele(0, EKRAN_YÜKSEKLİK - 1)
+    }
+}
+
+// Oyun motoru
+sınıf Oyun {
+    değişken yılan = yeni Yılan()
+    değişken yem = yeni Yem()
+    değişken çalışıyor = doğru
+    değişken tuval
+    değişken ctx
+    
+    fonksiyon başlat() {
+        // Canvas oluştur
+        tuval = döküman.oluştur_element("canvas")
+        tuval.genişlik = EKRAN_GENİŞLİK * KARE_BOYUT
+        tuval.yükseklik = EKRAN_YÜKSEKLİK * KARE_BOYUT
+        döküman.gövde.ekle(tuval)
+        
+        ctx = tuval.getContext("2d")
+        
+        // Oyun nesnelerini başlat
+        yılan.başlat()
+        yem.yeni_konum()
+        
+        // Klavye kontrollerini ekle
+        döküman.klavye_dinle("keydown", tuş_basıldı)
+        
+        // Oyun döngüsünü başlat
+        zamanlayıcı_kur(oyun_döngüsü, OYUN_HIZ)
+    }
+    
+    fonksiyon çiz() {
+        // Ekranı temizle
+        ctx.fillStyle = "black"
+        ctx.fillRect(0, 0, tuval.genişlik, tuval.yükseklik)
+        
+        // Yılanı çiz
+        ctx.fillStyle = "lime"
+        döngü i = 0, i < yılan.uzunluk, i++ {
+            ctx.fillRect(
+                yılan.x[i] * KARE_BOYUT,
+                yılan.y[i] * KARE_BOYUT,
+                KARE_BOYUT - 2,
+                KARE_BOYUT - 2
+            )
+        }
+        
+        // Yemi çiz
+        ctx.fillStyle = "red"
+        ctx.fillRect(
+            yem.x * KARE_BOYUT,
+            yem.y * KARE_BOYUT,
+            KARE_BOYUT - 2,
+            KARE_BOYUT - 2
+        )
+        
+        // Puanı çiz
+        ctx.fillStyle = "white"
+        ctx.font = "20px Arial"
+        ctx.fillText("Puan: " + yılan.puan, 10, 30)
+    }
+    
+    fonksiyon oyun_döngüsü() {
+        eğer çalışıyor {
+            eğer yılan.hareket_et() == yanlış {
+                oyun_bitti()
+                dönüş
+            }
+            
+            // Yem yeme kontrolü
+            eğer yılan.x[0] == yem.x ve yılan.y[0] == yem.y {
+                yılan.büyü()
+                yem.yeni_konum()
+            }
+            
+            çiz()
+        }
+    }
+    
+    fonksiyon tuş_basıldı(olay) {
+        değişken tuş = olay.keyCode
+        
+        eğer tuş == 37 ve yılan.yön != YÖN_SAĞ { // Sol
+            yılan.yön = YÖN_SOL
+        } değilse eğer tuş == 38 ve yılan.yön != YÖN_AŞAĞI { // Yukarı
+            yılan.yön = YÖN_YUKARI
+        } değilse eğer tuş == 39 ve yılan.yön != YÖN_SOL { // Sağ
+            yılan.yön = YÖN_SAĞ
+        } değilse eğer tuş == 40 ve yılan.yön != YÖN_YUKARI { // Aşağı
+            yılan.yön = YÖN_AŞAĞI
+        }
+    }
+    
+    fonksiyon oyun_bitti() {
+        çalışıyor = yanlış
+        yazdır("Oyun Bitti! Puanınız: " + yılan.puan)
+        
+        // Yeniden başlatma seçeneği
+        eğer mesaj_kutusu("Tekrar oynamak ister misiniz?") {
+            yılan = yeni Yılan()
+            yılan.başlat()
+            yem.yeni_konum()
+            çalışıyor = doğru
+        }
+    }
+}
+
+// Oyunu başlat
+fonksiyon main() {
+    değişken oyun = yeni Oyun()
+    oyun.başlat()
+}

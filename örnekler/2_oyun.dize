@@ -1,0 +1,95 @@
+// Sayı Tahmin Oyunu (Number Guessing Game)
+değişken hedef_sayı = 42
+değişken tahmin_hakkı = 5
+
+fonksiyon sayı_tahmin() {
+    yazdır("Sayı Tahmin Oyununa Hoş Geldiniz!")
+    yazdır("1-100 arasında bir sayı tahmin edin.")
+    
+    döngü tahmin_hakkı > 0 {
+        değişken tahmin
+        yazdır("Tahmininiz: ")
+        oku(tahmin)
+        
+        eğer tahmin == hedef_sayı {
+            yazdır("Tebrikler! Doğru tahmin ettiniz!")
+            dönüş
+        } değilse eğer tahmin < hedef_sayı {
+            yazdır("Daha yüksek bir sayı deneyin!")
+        } değilse {
+            yazdır("Daha düşük bir sayı deneyin!")
+        }
+        
+        tahmin_hakkı = tahmin_hakkı - 1
+        yazdır("Kalan hakkınız: " + tahmin_hakkı)
+    }
+    
+    yazdır("Oyun bitti! Doğru sayı: " + hedef_sayı)
+}
+
+// Kelime Karıştırma Oyunu (Word Scramble Game)
+değişken kelimeler = ["ANKARA", "İSTANBUL", "İZMİR", "BURSA", "ANTALYA"]
+değişken puan = 0
+
+fonksiyon kelime_karıştır(metin kelime) {
+    değişken uzunluk = kelime.uzunluk()
+    değişken karışık = ""
+    
+    döngü uzunluk > 0 {
+        değişken indeks = rastgele(0, uzunluk - 1)
+        karışık = karışık + kelime[indeks]
+        kelime = kelime.çıkar(indeks)
+        uzunluk = uzunluk - 1
+    }
+    
+    dönüş karışık
+}
+
+fonksiyon kelime_oyunu() {
+    yazdır("Kelime Karıştırma Oyununa Hoş Geldiniz!")
+    yazdır("Karışık harflerden orijinal kelimeyi bulun.")
+    
+    döngü kelimeler için kelime {
+        değişken karışık = kelime_karıştır(kelime)
+        yazdır("\nKarışık kelime: " + karışık)
+        
+        değişken tahmin
+        yazdır("Tahmininiz: ")
+        oku(tahmin)
+        
+        eğer tahmin == kelime {
+            yazdır("Doğru!")
+            puan = puan + 10
+        } değilse {
+            yazdır("Yanlış! Doğru kelime: " + kelime)
+        }
+        
+        yazdır("Mevcut puanınız: " + puan)
+    }
+    
+    yazdır("\nOyun bitti! Toplam puanınız: " + puan)
+}
+
+// Ana program
+fonksiyon main() {
+    döngü {
+        yazdır("\n1. Sayı Tahmin Oyunu")
+        yazdır("2. Kelime Karıştırma Oyunu")
+        yazdır("3. Çıkış")
+        yazdır("Seçiminiz: ")
+        
+        değişken seçim
+        oku(seçim)
+        
+        eğer seçim == 1 {
+            sayı_tahmin()
+        } değilse eğer seçim == 2 {
+            kelime_oyunu()
+        } değilse eğer seçim == 3 {
+            yazdır("Oyundan çıkılıyor...")
+            bitir
+        } değilse {
+            yazdır("Geçersiz seçim!")
+        }
+    }
+}
