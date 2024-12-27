@@ -1,0 +1,122 @@
+// Mağara Macerası - Cave Adventure
+
+değişken can = 100;
+değişken altın = 0;
+değişken envanter = dizi();
+değişken oyun_devam = doğru;
+
+fonksiyon başlat() {
+    yazdır "\n=== MAĞARA MACERASI ===";
+    yazdır "Karanlık bir mağaranın girişindesiniz.";
+    yazdır "Yaşam: " + can;
+    yazdır "Altın: " + altın;
+    
+    ana_döngü();
+}
+
+fonksiyon ana_döngü() {
+    döngü (oyun_devam) {
+        yazdır "\nNe yapmak istersiniz?";
+        yazdır "1 - İlerle";
+        yazdır "2 - Sandığı aç";
+        yazdır "3 - Savaş";
+        yazdır "4 - Kaç";
+        
+        değişken seçim = oku_sayı();
+        
+        eğer (seçim == 1) {
+            ilerle();
+        } değilse eğer (seçim == 2) {
+            sandık_aç();
+        } değilse eğer (seçim == 3) {
+            savaş();
+        } değilse eğer (seçim == 4) {
+            kaç();
+        }
+        
+        eğer (can <= 0) {
+            oyun_bitti("Öldünüz! Oyun bitti.");
+            bitir;
+        }
+    }
+}
+
+fonksiyon ilerle() {
+    değişken şans = rastgele(1, 100);
+    
+    eğer (şans < 30) {
+        yazdır "Bir tuzağa düştünüz! -20 can";
+        can = can - 20;
+    } değilse eğer (şans < 60) {
+        yazdır "Altın buldunuz! +50 altın";
+        altın = altın + 50;
+    } değilse eğer (şans < 90) {
+        yazdır "Bir canavar belirdi!";
+        savaş();
+    } değilse {
+        yazdır "Güvenli bir şekilde ilerlediniz.";
+    }
+}
+
+fonksiyon sandık_aç() {
+    değişken şans = rastgele(1, 100);
+    
+    eğer (şans < 40) {
+        yazdır "Tuzaklı sandık! -15 can";
+        can = can - 15;
+    } değilse eğer (şans < 70) {
+        değişken miktar = rastgele(20, 100);
+        yazdır miktar + " altın buldunuz!";
+        altın = altın + miktar;
+    } değilse {
+        yazdır "Sihirli iksir buldunuz! +30 can";
+        can = can + 30;
+        eğer (can > 100) {
+            can = 100;
+        }
+    }
+}
+
+fonksiyon savaş() {
+    değişken canavar_gücü = rastgele(10, 30);
+    değişken hasar = rastgele(5, 25);
+    
+    yazdır "Canavar size " + hasar + " hasar verdi!";
+    can = can - hasar;
+    
+    yazdır "Canavara " + canavar_gücü + " hasar verdiniz!";
+    
+    eğer (canavar_gücü > hasar) {
+        yazdır "Canavarı yendiniz! +100 altın";
+        altın = altın + 100;
+    } değilse {
+        yazdır "Savaşı kaybettiniz! -10 can";
+        can = can - 10;
+    }
+}
+
+fonksiyon kaç() {
+    değişken şans = rastgele(1, 100);
+    
+    eğer (şans < 50) {
+        yazdır "Kaçmayı başardınız!";
+        eğer (altın > 0) {
+            değişken kayıp = altın / 2;
+            altın = altın - kayıp;
+            yazdır "Ama " + kayıp + " altın düşürdünüz!";
+        }
+    } değilse {
+        yazdır "Kaçamadınız! -25 can";
+        can = can - 25;
+    }
+}
+
+fonksiyon oyun_bitti(mesaj) {
+    yazdır "\n=== OYUN BİTTİ ===";
+    yazdır mesaj;
+    yazdır "Toplanan altın: " + altın;
+    oyun_devam = yanlış;
+}
+
+// Oyunu başlat
+başlat();
